@@ -17,6 +17,7 @@ size = Vector3( 1, 2, 2 )
 [sub_resource type="BoxShape" id=3]
 
 [node name="root" type="Spatial"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.242188, -3.8147e-06, -0.234715 )
 script = ExtResource( 2 )
 
 [node name="Camera" type="Camera" parent="."]
@@ -42,25 +43,25 @@ transform = Transform( 0.714216, 0.606153, 0.349963, -0.40775, 0.766725, -0.4958
 [node name="Wall3" parent="Scene" instance=ExtResource( 1 )]
 transform = Transform( 0.716594, -0.604044, -0.348745, 0.406332, 0.767925, -0.495162, 0.56691, 0.213124, 0.795733, 15, 0, -30.7134 )
 
-[node name="Area" type="Area" parent="Scene"]
+[node name="Ocean" type="Area" parent="Scene"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -15.6191, 10.5548 )
 collision_layer = 2
 collision_mask = 2
 
-[node name="CollisionShape" type="CollisionShape" parent="Scene/Area"]
+[node name="CollisionShape" type="CollisionShape" parent="Scene/Ocean"]
 shape = SubResource( 1 )
 
-[node name="MeshInstance" type="MeshInstance" parent="Scene/Area"]
+[node name="MeshInstance" type="MeshInstance" parent="Scene/Ocean"]
 transform = Transform( 100, 0, 0, 0, 20, 0, 0, 0, 100, -1.17846, -11.8236, -6 )
 generate_lightmap = false
 mesh = SubResource( 7 )
 material/0 = ExtResource( 3 )
 
 [node name="Spawn" type="Spatial" parent="Scene"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.75639, -19.6715 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.75639, -13.9921 )
 
-[node name="Glacier" type="KinematicBody" parent="Scene"]
-transform = Transform( 35.0544, 0, 0, 0, 4.18055, -4.03034, 0, 1.16739, 14.4331, 0.18631, 2.22125, -35.9988 )
+[node name="Glacier" type="Area" parent="Scene"]
+transform = Transform( 35.0544, 0, 0, 0, 4.18055, -4.03034, 0, 1.16739, 14.4331, 0.18631, 2.22125, -30.7239 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Scene/Glacier"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.242912, -0.0196478 )
@@ -68,7 +69,11 @@ mesh = SubResource( 2 )
 material/0 = null
 
 [node name="CollisionShape" type="CollisionShape" parent="Scene/Glacier"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 shape = SubResource( 3 )
+
+[node name="DropPoint" type="Spatial" parent="Scene/Glacier"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.98555, 1.02228 )
 
 [node name="berg" parent="." instance=ExtResource( 5 )]
 transform = Transform( 0.961899, 0.273404, 4.31939e-05, -0.273404, 0.961899, -7.21495e-05, -6.12792e-05, 5.75857e-05, 1, 42, -21.7158, 37.4661 )
@@ -77,4 +82,25 @@ transform = Transform( 0.961899, 0.273404, 4.31939e-05, -0.273404, 0.961899, -7.
 margin_right = 228.0
 margin_bottom = 229.0
 
-[connection signal="body_entered" from="Scene/Area" to="." method="_on_Area_body_entered"]
+[node name="HUD" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Label" type="Label" parent="HUD/HBoxContainer"]
+margin_top = 13.0
+margin_right = 64.0
+margin_bottom = 27.0
+text = "Sea Level:"
+
+[node name="SeaLevel" type="Label" parent="HUD/HBoxContainer"]
+margin_left = 68.0
+margin_top = 13.0
+margin_right = 68.0
+margin_bottom = 27.0
+
+[connection signal="body_entered" from="Scene/Ocean" to="." method="_on_Ocean_body_entered"]
+[connection signal="body_exited" from="Scene/Ocean" to="." method="_on_Ocean_body_exited"]

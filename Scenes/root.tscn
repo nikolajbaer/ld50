@@ -24,8 +24,8 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.242188, -3.8147e-06, -0.234
 script = ExtResource( 2 )
 
 [node name="Camera" type="Camera" parent="."]
-transform = Transform( 0.567707, -0.376072, 0.732311, -0.0419772, 0.875176, 0.481981, -0.82216, -0.304364, 0.481057, 62.4747, 39.4442, 34.9126 )
-fov = 30.8
+transform = Transform( 0.523224, -0.472207, 0.709407, -0.0392443, 0.818212, 0.573577, -0.851292, -0.327949, 0.409576, 62.4747, 39.4442, 34.9126 )
+fov = 44.8
 far = 1361.0
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]

@@ -25,13 +25,13 @@ transform = Transform( 0.981449, -0.0358462, 0.188344, 0.0138587, 0.993061, 0.11
 fov = 75.0
 
 [node name="Wall" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 0.910907, -0.412611, 0, 0.412611, 0.910907, -13.545, 0, -30.7134 )
+transform = Transform( 1, 0, 0, 0, 0.910907, -0.412611, 0, 0.412611, 0.910907, -5.76138, 0, -30.7134 )
 
 [node name="Wall2" parent="." instance=ExtResource( 1 )]
 transform = Transform( 0.714216, 0.606153, 0.349963, -0.40775, 0.766725, -0.495855, -0.568889, 0.21145, 0.794766, -15, 0, -30.7134 )
 
 [node name="Wall4" parent="." instance=ExtResource( 1 )]
-transform = Transform( 0.830571, 0.150721, 0.53613, -0.00879401, 0.966111, -0.257977, -0.556844, 0.209553, 0.803749, -39.1318, -0.364311, -14.6355 )
+transform = Transform( 0.830571, 0.150721, 0.53613, -0.00879401, 0.966111, -0.257977, -0.556844, 0.209553, 0.803749, -40.7287, -0.364311, -14.7597 )
 
 [node name="Wall3" parent="." instance=ExtResource( 1 )]
 transform = Transform( 0.716594, -0.604044, -0.348745, 0.406332, 0.767925, -0.495162, 0.56691, 0.213124, 0.795733, 15, 0, -30.7134 )
@@ -57,7 +57,7 @@ material/0 = SubResource( 5 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.75639, -19.6715 )
 
 [node name="Glacier" type="KinematicBody" parent="."]
-transform = Transform( 35.0544, 0, 0, 0, 4.18055, -4.03034, 0, 1.16739, 14.4331, 0, 2.13428, -35.9084 )
+transform = Transform( 35.0544, 0, 0, 0, 4.18055, -4.03034, 0, 1.16739, 14.4331, 0.18631, 2.22125, -35.9988 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Glacier"]
 mesh = SubResource( 2 )

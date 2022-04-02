@@ -50,6 +50,7 @@ func _process(delta):
 	
 func _on_Ocean_body_entered(body):
 	if body.get_mode() == RigidBody.MODE_RIGID:
+		print("starting float")
 		body.start_float()
 		melt_level += 1
 		sea_level_label.text = "%s" % melt_level

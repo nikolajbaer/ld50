@@ -65,6 +65,7 @@ func release_from_ice():
 	state = FREE
 
 func start_grab():
+	print("Grabbed")
 	state = GRABBED
 	grab_point = translation
 	set_mode(RigidBody.MODE_KINEMATIC)

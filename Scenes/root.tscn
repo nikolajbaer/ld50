@@ -7,7 +7,7 @@
 [ext_resource path="res://Models/berg.glb" type="PackedScene" id=5]
 
 [sub_resource type="BoxShape" id=1]
-extents = Vector3( 29.9447, 10.678, 56.7298 )
+extents = Vector3( 86.7434, 10.678, 56.7298 )
 
 [sub_resource type="CubeMesh" id=7]
 
@@ -21,7 +21,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.242188, -3.8147e-06, -0.234
 script = ExtResource( 2 )
 
 [node name="Camera" type="Camera" parent="."]
-transform = Transform( 0.981449, -0.0358462, 0.188344, 0.0138587, 0.99306, 0.116786, -0.191223, -0.112009, 0.975135, -12.3384, 11.6377, 69.9027 )
+transform = Transform( 0.768419, -0.0853109, 0.634235, 0.0138587, 0.99306, 0.116786, -0.639797, -0.0809508, 0.764269, 20.5247, 11.6377, 15.7808 )
 fov = 75.0
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
@@ -62,6 +62,8 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.75639, -13.9921 )
 
 [node name="Glacier" type="Area" parent="Scene"]
 transform = Transform( 35.0544, 0, 0, 0, 4.18055, -4.03034, 0, 1.16739, 14.4331, 0.18631, 2.22125, -30.7239 )
+collision_layer = 2
+collision_mask = 2
 
 [node name="MeshInstance" type="MeshInstance" parent="Scene/Glacier"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.242912, -0.0196478 )
@@ -76,7 +78,7 @@ shape = SubResource( 3 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.98555, 1.02228 )
 
 [node name="berg" parent="." instance=ExtResource( 5 )]
-transform = Transform( 0.961899, 0.273404, 4.31939e-05, -0.273404, 0.961899, -7.21495e-05, -6.12792e-05, 5.75857e-05, 1, 0, -21.7158, 37.4661 )
+transform = Transform( 0.961899, 0.273404, 4.31939e-05, -0.273404, 0.961899, -7.21495e-05, -6.12792e-05, 5.75857e-05, 1, -52.48, -19.736, -2.21608 )
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 margin_right = 228.0

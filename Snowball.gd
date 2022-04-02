@@ -38,8 +38,9 @@ func _process(delta):
 			translation = l0 + t * l
 			if translation.y < water_y:
 				translation.y = water_y
-			if translation.z > grab_point.z:
-				translation.z = grab_point.z
+			#if translation.z > grab_point.z + 20:
+			#	translation.z = grab_point.z + 20
+			translation.z = clamp(translation.z,-30,grab_point.z+20)
 	elif state == FLOATING or state == STUCK:
 		translation += float_velocity * delta
 		if state == FLOATING and bob < 10: # TODO make this a buoyant force instead..
@@ -53,6 +54,7 @@ func start_float():
 	bob = 0.01
 	water_y = translation.y
 	state = FLOATING
+	$Particles.emitting = true
 
 func stick_to_ice(flow_vel):
 	set_mode(RigidBody.MODE_KINEMATIC)

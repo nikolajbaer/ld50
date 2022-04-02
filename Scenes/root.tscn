@@ -3,7 +3,7 @@
 [ext_resource path="res://Scenes/Wall.tscn" type="PackedScene" id=1]
 [ext_resource path="res://root.gd" type="Script" id=2]
 [ext_resource path="res://Shaders/RoystanToonWaterShader.tres" type="Material" id=3]
-[ext_resource path="res://default_env.tres" type="Environment" id=4]
+[ext_resource path="res://game_env.tres" type="Environment" id=4]
 [ext_resource path="res://Models/berg.glb" type="PackedScene" id=5]
 [ext_resource path="res://Models/island.glb" type="PackedScene" id=6]
 [ext_resource path="res://Models/Boats/watercraftPack_004.gltf" type="PackedScene" id=7]
@@ -24,7 +24,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.242188, -3.8147e-06, -0.234
 script = ExtResource( 2 )
 
 [node name="Camera" type="Camera" parent="."]
-transform = Transform( 0.523224, -0.472207, 0.709407, -0.0392443, 0.818212, 0.573577, -0.851292, -0.327949, 0.409576, 62.4747, 39.4442, 34.9126 )
+transform = Transform( 0.610474, -0.434802, 0.662018, -0.0392443, 0.818212, 0.573576, -0.791063, -0.376134, 0.482434, 42.6845, 34.7611, 28.0675 )
 fov = 44.8
 far = 1361.0
 
@@ -41,7 +41,7 @@ environment = ExtResource( 4 )
 [node name="Scene" type="Spatial" parent="."]
 
 [node name="Wall" parent="Scene" instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 0.910907, -0.412611, 0, 0.412611, 0.910907, -5.76138, 0, -30.7134 )
+transform = Transform( 1, 0, 0, 0, 0.910907, -0.412611, 0, 0.412611, 0.910907, -5.76138, 0, -23.8451 )
 
 [node name="Ocean" type="Area" parent="Scene"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -16.6603, 10.5548 )
@@ -49,7 +49,7 @@ collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape" type="CollisionShape" parent="Scene/Ocean"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.23111, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.74666, 7.80637 )
 shape = SubResource( 1 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Scene/Ocean"]
@@ -58,30 +58,39 @@ generate_lightmap = false
 mesh = SubResource( 7 )
 material/0 = ExtResource( 3 )
 
-[node name="watercraftPack_004" parent="Scene/Ocean/MeshInstance" instance=ExtResource( 7 )]
-transform = Transform( 0.00680716, 0, 0.00793279, 0, 0.05, 0, -0.00886902, 0, 0.00608858, -0.0264027, 0.955049, 0.0231903 )
+[node name="Boats" type="Spatial" parent="Scene/Ocean"]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.114334, 0, -7.55032 )
 
-[node name="watercraftPack_005" parent="Scene/Ocean/MeshInstance" instance=ExtResource( 8 )]
-transform = Transform( 0.00718891, 0, -0.00695123, 0, 0.05, 0, 0.00695123, 0, 0.00718891, 0.222141, 0.954121, 0.0379552 )
+[node name="watercraftPack_004" parent="Scene/Ocean/Boats" instance=ExtResource( 7 )]
+transform = Transform( 0.680716, 0, 0.793279, 0, 1, 0, -0.886902, 0, 0.608858, -18.2153, 28.6256, 20.7053 )
 
-[node name="Spawn" type="Spatial" parent="Scene"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.120152, -1.75639, -13.783 )
+[node name="watercraftPack_005" parent="Scene/Ocean/Boats" instance=ExtResource( 8 )]
+transform = Transform( -0.278841, 0, -0.960338, 0, 1, 0, 0.960338, 0, -0.278841, -15.6056, 28.4043, 31.508 )
 
 [node name="Glacier" type="Area" parent="Scene"]
 transform = Transform( 35.0544, 0, 0, 0, 4.18055, -4.03034, 0, 1.16739, 14.4331, 0.18631, 2.22125, -30.7239 )
 collision_layer = 2
 collision_mask = 2
 
-[node name="MeshInstance" type="MeshInstance" parent="Scene/Glacier"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.111332, -0.00900531 )
+[node name="GlacierMeshes" type="MeshInstance" parent="Scene/Glacier"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.111, -0.009 )
 mesh = SubResource( 2 )
 material/0 = null
+
+[node name="berg" parent="Scene/Glacier/GlacierMeshes" instance=ExtResource( 5 )]
+transform = Transform( 0.0282299, 0.00410722, 0, -0.0319483, 0.219588, 0.061964, 0.00258407, -0.0177609, 0.0642734, -0.488395, -2.11705, -0.979676 )
+
+[node name="berg2" parent="Scene/Glacier/GlacierMeshes" instance=ExtResource( 5 )]
+transform = Transform( -0.0363632, 0, 0.0203327, -0.0302411, 0.2219, -0.0540834, -0.0313682, -0.0179479, -0.0560991, 0.600375, -3.14987, -0.271284 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Scene/Glacier"]
 shape = SubResource( 3 )
 
 [node name="DropPoint" type="Spatial" parent="Scene/Glacier"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.98555, 1.02228 )
+
+[node name="Spawn" type="Spatial" parent="Scene/Glacier"]
+transform = Transform( 0.0285271, 0, 0, 0, 0.2219, 0.061964, 0, -0.0179479, 0.0642734, -0.00874247, 1.23608, 1.10821 )
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 margin_right = 228.0
@@ -91,27 +100,35 @@ margin_bottom = 229.0
 margin_right = 40.0
 margin_bottom = 40.0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HUD"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD"]
 margin_right = 40.0
 margin_bottom = 40.0
 
-[node name="Label" type="Label" parent="HUD/HBoxContainer"]
-margin_top = 13.0
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD/VBoxContainer"]
+margin_right = 68.0
+margin_bottom = 14.0
+
+[node name="Label" type="Label" parent="HUD/VBoxContainer/HBoxContainer"]
 margin_right = 64.0
-margin_bottom = 27.0
+margin_bottom = 14.0
 text = "Sea Level:"
 
-[node name="SeaLevel" type="Label" parent="HUD/HBoxContainer"]
+[node name="SeaLevel" type="Label" parent="HUD/VBoxContainer/HBoxContainer"]
 margin_left = 68.0
-margin_top = 13.0
 margin_right = 68.0
-margin_bottom = 27.0
+margin_bottom = 14.0
 
-[node name="berg" parent="." instance=ExtResource( 5 )]
-transform = Transform( 0.989581, 0.143976, 0, -0.143976, 0.989581, 0, 0, 0, 1, -16.9341, -2.17904, -47.3351 )
-
-[node name="berg2" parent="." instance=ExtResource( 5 )]
-transform = Transform( -1.27469, 0, 0.712751, 0, 1, 0, -0.488043, 0, -0.87282, 21.2321, -9.35185, -38.3165 )
+[node name="GameOverLabel" type="Label" parent="HUD"]
+visible = false
+margin_left = 415.0
+margin_top = 235.0
+margin_right = 623.0
+margin_bottom = 323.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "GAME OVER"
+align = 1
+valign = 1
 
 [node name="island" parent="." instance=ExtResource( 6 )]
 transform = Transform( 0.3745, 0, -0.800002, 0, 1.06635, 0, 0.896495, 0, 0.600911, -44.1783, -6.71732, -24.142 )

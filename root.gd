@@ -1,7 +1,7 @@
 extends Spatial
 
-onready var sea_level_label = $HUD/HBoxContainer/SeaLevel
-var Rock = preload("res://Scenes/Snowball.tscn")
+onready var sea_level_label = $HUD/VBoxContainer/HBoxContainer/SeaLevel
+var Snowball = preload("res://Scenes/Snowball.tscn")
 
 var rate
 var t
@@ -14,6 +14,14 @@ var restored_snow
 var melt_level 
 var start_sea_level
 const MELT_SPEED = 0.1 # effect of iceberg count on sea level rise 
+var game_on = false
+var glacier_start
+
+const GLACIER_SPEED = 0.1
+
+const INEVITABLE_LEVEL = 100 # Total Submersion
+
+onready var tween = $Tween
 
 func _ready():
 	rate = 3.0
@@ -24,17 +32,21 @@ func _ready():
 	restored_snow = []
 	melt_level = 0
 	start_sea_level = $Scene/Ocean.global_transform.origin.y
+	# TODO change for start game button
+	game_on = true
 
 func _process(delta):
+	if not game_on: return
+	
 	if t > rate:
 		t = 0
-		var b = Rock.instance()
-		# I broke $Spawn! But I don't really know what it means...
-		b.translation = $Scene/Spawn.translation
+		var b = Snowball.instance()
+		b.translation = $Scene/Glacier/Spawn.global_transform.origin
 		b.translation.x += rand_range(-5,5)
-		b.scale *= rand_range(0.5,1.5)
+		b.scale *= rand_range(0.85,1.75)
 		b.rotation.x = rand_range(-1,1)
 		b.rotation.z = rand_range(-1,1)
+		b.linear_velocity = Vector3(0,0,rand_range(1,3))
 		b.connect("grabbed",self,"_snowball_grabbed",[b])
 		b.add_to_group("snowballs")
 		add_child(b)
@@ -43,11 +55,21 @@ func _process(delta):
 		t += delta
 	flow_vel += delta * GLOBAL_WARMING
 	
+	var water_level = start_sea_level + melt_level * MELT_SPEED
+	var water_change = water_level - $Scene/Ocean.translation.y
+	$Scene/Ocean.translation.y = water_level # TODO Tween
+	
 	for snow in get_tree().get_nodes_in_group("snowballs"):
 		if snow.is_stuck() and snow.global_transform.origin.z > release_z:
 			snow.release_from_ice()
-	$Scene/Ocean.translation.y = start_sea_level + melt_level * MELT_SPEED
-	
+		elif snow.is_floating():
+			snow.water_y += water_change	 # TODO Tween
+
+	$Scene/Glacier.translation.z += GLACIER_SPEED * delta
+
+	if melt_level > INEVITABLE_LEVEL:
+		game_over()
+
 func _on_Ocean_body_entered(body):
 	if body.get_mode() == RigidBody.MODE_RIGID:
 		print("starting float")
@@ -71,3 +93,9 @@ func _on_Glacier_body_entered(body):
 func _on_Ocean_body_exited(body):
 	if body.is_grabbed():
 		melt_level -= 1	
+	else:
+		body.queue_free()
+
+func game_over():
+	game_on = false
+	$HUD/GameOverLabel.visible = true

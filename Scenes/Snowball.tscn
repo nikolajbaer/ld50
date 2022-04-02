@@ -1,10 +1,30 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Snowball.gd" type="Script" id=1]
 
 [sub_resource type="SphereShape" id=1]
 
 [sub_resource type="SphereMesh" id=2]
+
+[sub_resource type="ParticlesMaterial" id=3]
+emission_shape = 5
+emission_ring_radius = 1.0
+emission_ring_inner_radius = 1.0
+emission_ring_height = 1.0
+emission_ring_axis = Vector3( 0, 1, 0 )
+direction = Vector3( 0, 1, 0 )
+spread = 94.09
+initial_velocity = 3.0
+
+[sub_resource type="SpatialMaterial" id=4]
+albedo_color = Color( 0.635294, 0.835294, 0.909804, 1 )
+
+[sub_resource type="SphereMesh" id=5]
+material = SubResource( 4 )
+radius = 0.25
+height = 0.5
+radial_segments = 12
+rings = 12
 
 [node name="Snowball" type="RigidBody"]
 collision_layer = 3
@@ -16,5 +36,14 @@ shape = SubResource( 1 )
 [node name="MeshInstance" type="MeshInstance" parent="."]
 mesh = SubResource( 2 )
 material/0 = null
+
+[node name="Particles" type="Particles" parent="."]
+emitting = false
+amount = 16
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource( 3 )
+draw_pass_1 = SubResource( 5 )
 
 [connection signal="input_event" from="." to="." method="_on_Snowball_input_event"]

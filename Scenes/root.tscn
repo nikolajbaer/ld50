@@ -58,6 +58,12 @@ generate_lightmap = false
 mesh = SubResource( 7 )
 material/0 = ExtResource( 3 )
 
+[node name="watercraftPack_004" parent="Scene/Ocean/MeshInstance" instance=ExtResource( 7 )]
+transform = Transform( 0.00680716, 0, 0.00793279, 0, 0.05, 0, -0.00886902, 0, 0.00608858, -0.0264027, 0.955049, 0.0231903 )
+
+[node name="watercraftPack_005" parent="Scene/Ocean/MeshInstance" instance=ExtResource( 8 )]
+transform = Transform( 0.00718891, 0, -0.00695123, 0, 0.05, 0, 0.00695123, 0, 0.00718891, 0.222141, 0.954121, 0.0379552 )
+
 [node name="Spawn" type="Spatial" parent="Scene"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.120152, -1.75639, -13.783 )
 
@@ -102,10 +108,10 @@ margin_right = 68.0
 margin_bottom = 27.0
 
 [node name="berg" parent="." instance=ExtResource( 5 )]
-transform = Transform( 0.989581, 0.143976, 0, -0.143976, 0.989581, 0, 0, 0, 1, -16.9341, -13.2451, -47.3351 )
+transform = Transform( 0.989581, 0.143976, 0, -0.143976, 0.989581, 0, 0, 0, 1, -16.9341, -2.17904, -47.3351 )
 
 [node name="berg2" parent="." instance=ExtResource( 5 )]
-transform = Transform( -1.27469, 0, 0.712751, 0, 1, 0, -0.488043, 0, -0.87282, 21.2321, -13.2451, -38.3165 )
+transform = Transform( -1.27469, 0, 0.712751, 0, 1, 0, -0.488043, 0, -0.87282, 21.2321, -9.35185, -38.3165 )
 
 [node name="island" parent="." instance=ExtResource( 6 )]
 transform = Transform( 0.3745, 0, -0.800002, 0, 1.06635, 0, 0.896495, 0, 0.600911, -44.1783, -6.71732, -24.142 )
@@ -113,11 +119,8 @@ transform = Transform( 0.3745, 0, -0.800002, 0, 1.06635, 0, 0.896495, 0, 0.60091
 [node name="island2" parent="." instance=ExtResource( 6 )]
 transform = Transform( -0.221814, 0, -0.948939, 0, 1.128, 0, 0.940966, 0, 0.0054118, 49.5157, -7.01261, -28.315 )
 
-[node name="watercraftPack_004" parent="." instance=ExtResource( 7 )]
-transform = Transform( 0.680716, 0, 0.793279, 0, 1, 0, -0.886902, 0, 0.608858, -7.45091, -2.90974, 5.9655 )
-
-[node name="watercraftPack_005" parent="." instance=ExtResource( 8 )]
-transform = Transform( 0.718891, 0, -0.695123, 0, 1, 0, 0.695123, 0, 0.718891, 17.4034, -2.38643, 7.44199 )
+[node name="Title card cam" type="Camera" parent="."]
+transform = Transform( -1, 2.11495e-08, 8.48259e-08, 0, 0.970296, -0.241922, -8.74228e-08, -0.241922, -0.970296, 10, 5, -90 )
 
 [connection signal="body_entered" from="Scene/Ocean" to="." method="_on_Ocean_body_entered"]
 [connection signal="body_exited" from="Scene/Ocean" to="." method="_on_Ocean_body_exited"]

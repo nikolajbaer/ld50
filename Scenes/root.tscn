@@ -71,7 +71,7 @@ material/0 = null
 shape = SubResource( 3 )
 
 [node name="berg" parent="." instance=ExtResource( 5 )]
-transform = Transform( 0.961899, 0.273404, 4.31939e-05, -0.273404, 0.961899, -7.21495e-05, -6.12792e-05, 5.75857e-05, 1, 0, -21.7158, 37.4661 )
+transform = Transform( 0.961899, 0.273404, 4.31939e-05, -0.273404, 0.961899, -7.21495e-05, -6.12792e-05, 5.75857e-05, 1, 42, -21.7158, 37.4661 )
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 margin_right = 228.0

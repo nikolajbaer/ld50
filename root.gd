@@ -30,7 +30,7 @@ func _process(delta):
 		t = 0
 		var b = Rock.instance()
 		# I broke $Spawn! But I don't really know what it means...
-		# b.translation = $Spawn.translation
+		b.translation = $Scene/Spawn.translation
 		b.translation.x += rand_range(-5,5)
 		b.scale *= rand_range(0.5,1.5)
 		b.rotation.x = rand_range(-1,1)

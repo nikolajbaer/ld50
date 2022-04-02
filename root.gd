@@ -1,7 +1,7 @@
 extends Spatial
 
 onready var sea_level_label = $HUD/HBoxContainer/SeaLevel
-var Rock = preload("res://Snowball.tscn")
+var Rock = preload("res://Scenes/Snowball.tscn")
 
 var rate
 var t
@@ -19,17 +19,18 @@ func _ready():
 	rate = 3.0
 	t = 0
 	flow_vel = 0
-	flow_vec = $Glacier/CollisionShape.global_transform.basis.z.normalized()
-	release_z = $Glacier/DropPoint.global_transform.origin.z # plane which when crossed snow falls back off the glacier
+	flow_vec = $Scene/Glacier/CollisionShape.global_transform.basis.z.normalized()
+	release_z = $Scene/Glacier/DropPoint.global_transform.origin.z # plane which when crossed snow falls back off the glacier
 	restored_snow = []
 	melt_level = 0
-	start_sea_level = $Ocean.global_transform.origin.y
+	start_sea_level = $Scene/Ocean.global_transform.origin.y
 
 func _process(delta):
 	if t > rate:
 		t = 0
 		var b = Rock.instance()
-		b.translation = $Spawn.translation
+		# I broke $Spawn! But I don't really know what it means...
+		# b.translation = $Spawn.translation
 		b.translation.x += rand_range(-5,5)
 		b.scale *= rand_range(0.5,1.5)
 		b.rotation.x = rand_range(-1,1)
@@ -45,7 +46,7 @@ func _process(delta):
 	for snow in get_tree().get_nodes_in_group("snowballs"):
 		if snow.is_stuck() and snow.global_transform.origin.z > release_z:
 			snow.release_from_ice()
-	$Ocean.translation.y = start_sea_level + melt_level * MELT_SPEED
+	$Scene/Ocean.translation.y = start_sea_level + melt_level * MELT_SPEED
 	
 func _on_Ocean_body_entered(body):
 	if body.get_mode() == RigidBody.MODE_RIGID:

@@ -1,6 +1,6 @@
 extends Spatial
 
-var Rock = preload("res://Snowball.tscn")
+var Rock = preload("res://Scenes/Snowball.tscn")
 
 var rate
 var t
@@ -14,7 +14,8 @@ func _process(delta):
 	if t > rate:
 		t = 0
 		var b = Rock.instance()
-		b.translation = $Spawn.translation
+		# I broke $Spawn! But I don't really know what it means...
+		# b.translation = $Spawn.translation
 		b.translation.x += rand_range(-5,5)
 		b.scale *= rand_range(0.5,1.5)
 		b.rotation.x = rand_range(-1,1)

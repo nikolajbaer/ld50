@@ -1,0 +1,80 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Scenes/Wall.tscn" type="PackedScene" id=1]
+[ext_resource path="res://root.gd" type="Script" id=2]
+[ext_resource path="res://Shaders/RoystanToonWaterShader.tres" type="Material" id=3]
+[ext_resource path="res://default_env.tres" type="Environment" id=4]
+[ext_resource path="res://Models/berg.glb" type="PackedScene" id=5]
+
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 29.9447, 10.678, 56.7298 )
+
+[sub_resource type="CubeMesh" id=7]
+
+[sub_resource type="CubeMesh" id=2]
+size = Vector3( 1, 2, 2 )
+
+[sub_resource type="BoxShape" id=3]
+
+[node name="root" type="Spatial"]
+script = ExtResource( 2 )
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 0.981449, -0.0358462, 0.188344, 0.0138587, 0.99306, 0.116786, -0.191223, -0.112009, 0.975135, -12.3384, 11.6377, 69.9027 )
+fov = 75.0
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( -0.743145, -0.669131, -6.69697e-08, -0.512584, 0.569282, -0.642788, 0.430109, -0.477684, -0.766044, 1.884, 69, 9.906 )
+light_color = Color( 0.894118, 0.945098, 1, 1 )
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource( 4 )
+
+[node name="Scene" type="Spatial" parent="."]
+
+[node name="Wall" parent="Scene" instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 0.910907, -0.412611, 0, 0.412611, 0.910907, -5.76138, 0, -30.7134 )
+
+[node name="Wall2" parent="Scene" instance=ExtResource( 1 )]
+transform = Transform( 0.714216, 0.606153, 0.349963, -0.40775, 0.766725, -0.495855, -0.568889, 0.21145, 0.794766, -15, 0, -30.7134 )
+
+[node name="Wall3" parent="Scene" instance=ExtResource( 1 )]
+transform = Transform( 0.716594, -0.604044, -0.348745, 0.406332, 0.767925, -0.495162, 0.56691, 0.213124, 0.795733, 15, 0, -30.7134 )
+
+[node name="Area" type="Area" parent="Scene"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -15.6191, 10.5548 )
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape" type="CollisionShape" parent="Scene/Area"]
+shape = SubResource( 1 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Scene/Area"]
+transform = Transform( 100, 0, 0, 0, 20, 0, 0, 0, 100, -1.17846, -11.8236, -6 )
+generate_lightmap = false
+mesh = SubResource( 7 )
+material/0 = ExtResource( 3 )
+
+[node name="Spawn" type="Spatial" parent="Scene"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.75639, -19.6715 )
+
+[node name="Glacier" type="KinematicBody" parent="Scene"]
+transform = Transform( 35.0544, 0, 0, 0, 4.18055, -4.03034, 0, 1.16739, 14.4331, 0.18631, 2.22125, -35.9988 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Scene/Glacier"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.242912, -0.0196478 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="Scene/Glacier"]
+shape = SubResource( 3 )
+
+[node name="berg" parent="." instance=ExtResource( 5 )]
+transform = Transform( 0.961899, 0.273404, 4.31939e-05, -0.273404, 0.961899, -7.21495e-05, -6.12792e-05, 5.75857e-05, 1, 0, -21.7158, 37.4661 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+margin_right = 228.0
+margin_bottom = 229.0
+
+[connection signal="body_entered" from="Scene/Area" to="." method="_on_Area_body_entered"]

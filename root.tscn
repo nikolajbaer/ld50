@@ -72,6 +72,27 @@ shape = SubResource( 3 )
 [node name="DropPoint" type="Spatial" parent="Glacier"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.717327, 1.04472 )
 
+[node name="HUD" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Label" type="Label" parent="HUD/HBoxContainer"]
+margin_top = 13.0
+margin_right = 68.0
+margin_bottom = 27.0
+text = "Sea Level: "
+
+[node name="SeaLevel" type="Label" parent="HUD/HBoxContainer"]
+margin_left = 72.0
+margin_top = 13.0
+margin_right = 80.0
+margin_bottom = 27.0
+text = "0"
+
 [connection signal="body_entered" from="Ocean" to="." method="_on_Ocean_body_entered"]
 [connection signal="body_exited" from="Ocean" to="." method="_on_Ocean_body_exited"]
 [connection signal="body_entered" from="Glacier" to="." method="_on_Glacier_body_entered"]

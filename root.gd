@@ -1,5 +1,6 @@
 extends Spatial
 
+onready var sea_level_label = $HUD/HBoxContainer/SeaLevel
 var Rock = preload("res://Snowball.tscn")
 
 var rate
@@ -50,6 +51,7 @@ func _on_Ocean_body_entered(body):
 	if body.get_mode() == RigidBody.MODE_RIGID:
 		body.start_float()
 		melt_level += 1
+		sea_level_label.text = "%s" % melt_level
 
 func _input(event):
 	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT:

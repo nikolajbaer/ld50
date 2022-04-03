@@ -3,11 +3,11 @@ extends RigidBody
 var water_level
 const g = -9.8 # acceleration of graviy
 
-const DRAG_COEFFICIENT = 250 # https://en.wikipedia.org/wiki/Drag_coefficient of sphere
+const DRAG_COEFFICIENT = 800
 
-const BF = 0.8
+const BF = 0.2
 
-const MELT_RATE = 0.05 # melt 5% every second
+const MELT_RATE = 0.1 # melt 5% every second
 
 var grab_point
 
@@ -15,10 +15,12 @@ var camera
 var state
 enum {FREE,GRABBED,STUCK}
 var flow_velocity
-
 const MAX_GRAB_VEL = 10
 var grab_vel
 var melt_amount
+onready var collider = $CollisionShape
+onready var mesh = $MeshInstance
+var radius
 
 signal grabbed
 
@@ -27,9 +29,9 @@ func _ready():
 	mass = 1000 # TODO scale to 
 	camera = get_tree().get_root().get_camera()
 	state = FREE
-	melt_amount = 0
+	radius = 1
 	set_process(true)
-
+	
 func _process(delta):
 	if state == GRABBED:			
 		var mouse = get_viewport().get_mouse_position()
@@ -55,29 +57,26 @@ func _process(delta):
 		grab_vel = grab_vel.normalized() * gv
 	elif state == STUCK:
 		translation += flow_velocity * delta
-	
+
+func touching_water():
+	return global_transform.origin.y - radius < water_level
+		
 func _physics_process(delta):
 	if get_mode() == RigidBody.MODE_KINEMATIC: return
 	
 	var pos = global_transform.origin
 	var buoyant_force = Vector3()
 	var drag_force = Vector3()
-	var radius = scale.x
-	if pos.y - radius < water_level: # if we are in the water
+	if touching_water(): # if we are in the water
 		var h = water_level - ( pos.y - radius ) # distance underwater
 		var a = radius
 		if h < radius: # if we are less than 1/2way under water
 			a = sqrt(pow(radius,2) - pow(radius-h,2)) # radius at water line
 		var displacement = clamp(h,0,radius*2)
 		var drag = -1 * linear_velocity.length() * DRAG_COEFFICIENT * (PI * pow(a,2))
-		buoyant_force = Vector3(0,weight * displacement * BF,0) * delta
+		buoyant_force = Vector3(0,weight * displacement * BF * radius,0) * delta
 		drag_force = linear_velocity.normalized() * drag * delta
 	apply_impulse(Vector3.ZERO,buoyant_force + drag_force)
-	
-	if melt_amount > 0:
-		#scale = scale * melt_amount
-		#mass = mass * melt_amount
-		melt_amount = 0
 
 func stick_to_ice(flow_vel):
 	set_mode(RigidBody.MODE_KINEMATIC)
@@ -122,11 +121,23 @@ func _on_SnowballB_input_event(camera, event, position, normal, shape_idx):
 		if event.is_pressed() and state == FREE:
 			start_grab()
 
+func scale_by(s):
+	#scale *= s
+	# Doesn't seem to want to work :P
+	radius *= s
+	collider.shape.radius *= s
+	mesh.scale *= s
+	mass *= s
+
+
+func volume(r):
+	return 4/3 * PI * pow(r,3)
+
 func melt(delta):
 	var x = delta * MELT_RATE
-	melt_amount = 1-x
-	var radius = scale.x
-	var v0 = 4/3.0 * PI * pow(radius,3)
-	var v1 = 4/3.0 * PI * pow(radius * (1-x),3)
-	return v0 - v1 # change in volume after this melting 
+	var melt_amount = 1-x
+	scale_by(melt_amount)
+	if radius < 0.25:
+		queue_free()
+	return volume(radius) * x
 	

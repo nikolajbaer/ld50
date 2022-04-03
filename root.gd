@@ -14,15 +14,13 @@ const GLOBAL_WARMING = 0.01# Rate at which ice flow increases (relative to delta
 var restored_snow
 var melt_level 
 var start_sea_level
-const MELT_SPEED = 0.01 # effect of iceberg count on sea level rise 
+const MELT_SPEED = 0.05 # effect of iceberg count on sea level rise 
 var game_on = false
 var glacier_start
 
 const GLACIER_SPEED = 0.1
 
 const INEVITABLE_LEVEL = 20 # Total Submersion
-
-onready var tween = $Tween
 
 func _ready():
 	rate = 3.0
@@ -39,25 +37,20 @@ func _ready():
 func _process(delta):
 	if not game_on: return
 	
-	for b in $Scene/Ocean.get_overlapping_bodies():
-		if b.is_in_group("snowballs"):
-			melt_level += b.melt(delta) * MELT_SPEED
-			
-	sea_level_label.text = "%s" % melt_level
 	
 	if t > rate:
 		t = 0
 		var b = Snowball.instance()
 		b.translation = $Scene/Glacier/Spawn.global_transform.origin
 		b.translation.x += rand_range(-5,5)
-		b.scale *= rand_range(0.85,1.75)
 		b.rotation.x = rand_range(-1,1)
 		b.rotation.z = rand_range(-1,1)
 		b.linear_velocity = Vector3(0,0,rand_range(1,3))
 		b.connect("grabbed",self,"_snowball_grabbed",[b])
 		b.add_to_group("snowballs")
 		add_child(b)
-		rate *= rand_range(0.95,1.0)
+		b.scale_by(rand_range(1.5,2.75))
+		rate *= rand_range(0.99,1.0)
 	else:
 		t += delta
 	flow_vel += delta * GLOBAL_WARMING
@@ -70,6 +63,9 @@ func _process(delta):
 		snow.water_level = water_level
 		if snow.is_stuck() and snow.global_transform.origin.z > release_z:
 			snow.release_from_ice()
+		if snow.touching_water():
+			melt_level += snow.melt(delta) * MELT_SPEED
+	sea_level_label.text = "%s" % melt_level
 
 	$Scene/Glacier.translation.z += GLACIER_SPEED * delta
 
@@ -98,14 +94,11 @@ func _snowball_grabbed(snowball):
 func _on_Glacier_body_entered(body):
 	if body.get_mode() == RigidBody.MODE_RIGID:
 		body.stick_to_ice(flow_vec * flow_vel)
-		
-
 
 		
 func game_over():
 	game_on = false
 	$HUD/GameOverLabel.visible = true
-
 
 func _on_Bloom_animation_finished(anim_name):
 	print("OKAY!")

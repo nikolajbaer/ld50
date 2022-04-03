@@ -14,13 +14,14 @@ func add_snowball():
 	var b = Snowball.instance()
 	b.translation = $Spawn.global_transform.origin
 	b.translation.x += rand_range(-5,5)
-	b.scale *= rand_range(0.85,1.75)
+	
 	b.rotation.x = rand_range(-1,1)
 	b.rotation.z = rand_range(-1,1)
 	b.linear_velocity = Vector3(0,0,rand_range(1,3))
 	b.connect("grabbed",self,"_snowball_grabbed",[b])
 	b.add_to_group("snowballs")
 	add_child(b)
+	b.scale_by(2.0)
 
 func _input(event):
 	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT:

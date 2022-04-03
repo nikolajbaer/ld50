@@ -32,9 +32,9 @@ func _ready():
 	restored_snow = []
 	melt_level = 0
 	start_sea_level = $Scene/Ocean.global_transform.origin.y
-	$WorldEnvironment.process_priority
-	# TODO change for start game button
+
 	game_on = true
+
 
 func _process(delta):
 	if not game_on: return
@@ -98,3 +98,8 @@ func _on_Ocean_body_exited(body):
 func game_over():
 	game_on = false
 	$HUD/GameOverLabel.visible = true
+
+
+func _on_Bloom_animation_finished(anim_name):
+	print("OKAY!")
+

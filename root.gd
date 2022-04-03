@@ -72,7 +72,7 @@ func _process(delta):
 
 func _on_Ocean_body_entered(body):
 	if body.get_mode() == RigidBody.MODE_RIGID:
-		print("starting float")
+		#print("starting float")
 		body.start_float()
 		melt_level += 1
 		sea_level_label.text = "%s" % melt_level
@@ -92,10 +92,8 @@ func _on_Glacier_body_entered(body):
 		
 func _on_Ocean_body_exited(body):
 	if body.is_grabbed():
-		melt_level -= 1	
-	else:
-		body.queue_free()
-
+		melt_level -= 1
+		
 func game_over():
 	game_on = false
 	$HUD/GameOverLabel.visible = true

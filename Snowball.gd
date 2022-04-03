@@ -2,7 +2,7 @@ extends RigidBody
 
 signal grabbed
 
-var water_y
+var water_y = 0
 var bob
 var float_velocity
 var BOB_X = 3 # controls intensity of bob, adjusted to scale
@@ -89,5 +89,6 @@ func is_grabbed():
 
 func _on_Snowball_input_event(camera, event, position, normal, shape_idx):
 	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT:
-		if event.is_pressed() and state == FLOATING:
+		if event.is_pressed() and (state == FLOATING or state == FREE):
 			start_grab()
+			

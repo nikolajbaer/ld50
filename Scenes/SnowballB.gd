@@ -7,7 +7,7 @@ const DRAG_COEFFICIENT = 800
 
 const BF = 0.2
 
-const MELT_RATE = 0.1 # melt 5% every second
+const MELT_RATE = 0.05 # melt 5% every second
 
 var grab_point
 

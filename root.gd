@@ -30,7 +30,7 @@ func _ready():
 	restored_snow = []
 	melt_level = 0
 	start_sea_level = $Scene/Ocean.global_transform.origin.y
-	$CameraEffects.play("camera-effects")
+	$Scene/CameraEffects.play("camera-effects")
 	game_on = true
 
 

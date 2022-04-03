@@ -20,7 +20,7 @@ size = Vector3( 2, 2, 5 )
 [sub_resource type="Animation" id=11]
 length = 2.0
 tracks/0/type = "value"
-tracks/0/path = NodePath("WorldEnvironment:environment")
+tracks/0/path = NodePath("../WorldEnvironment:environment")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -32,47 +32,47 @@ tracks/0/keys = {
 "values": [  ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("WorldEnvironment:environment:glow_intensity")
+tracks/1/path = NodePath("../WorldEnvironment:environment:glow_intensity")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 2 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ 8.0, 0.1 ]
+"values": [ 8.0 ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("WorldEnvironment:environment:glow_strength")
+tracks/2/path = NodePath("../WorldEnvironment:environment:glow_strength")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 2 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ 2.0, 0.92 ]
+"values": [ 2.0 ]
 }
 
 [sub_resource type="Animation" id=12]
 resource_name = "camera-effects"
 length = 2.0
 tracks/0/type = "value"
-tracks/0/path = NodePath("WorldEnvironment:environment")
+tracks/0/path = NodePath("../WorldEnvironment:environment:glow_intensity")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray(  ),
-"transitions": PoolRealArray(  ),
-"update": 1,
-"values": [  ]
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 8.0, 1.24 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("WorldEnvironment:environment:auto_exposure_scale")
+tracks/1/path = NodePath("../WorldEnvironment:environment:glow_strength")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -81,67 +81,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 2 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ 2.4, 64.0 ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("WorldEnvironment:environment")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = false
-tracks/2/keys = {
-"times": PoolRealArray(  ),
-"transitions": PoolRealArray(  ),
-"update": 1,
-"values": [  ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("WorldEnvironment:environment:glow_bloom")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0, 2 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ 0.89, 0.89 ]
-}
-tracks/4/type = "value"
-tracks/4/path = NodePath("WorldEnvironment:environment:glow_strength")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
-"times": PoolRealArray( 0, 2 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ 0.6, 0.6 ]
-}
-tracks/5/type = "value"
-tracks/5/path = NodePath("WorldEnvironment:environment:glow_intensity")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/keys = {
-"times": PoolRealArray( 0, 2 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ 0.19, 0.19 ]
-}
-tracks/6/type = "value"
-tracks/6/path = NodePath("WorldEnvironment:environment:adjustment_saturation")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/keys = {
-"times": PoolRealArray( 0, 2 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ 2.41, 0.01 ]
+"values": [ 2.0, 0.62 ]
 }
 
 [node name="root" type="Spatial"]
@@ -249,6 +189,10 @@ transform = Transform( 0.970255, 0, 2.33045, 0, 2.34418, 0, -1.95208, 0, 1.15832
 [node name="house_type02" parent="Scene/shore" instance=ExtResource( 10 )]
 transform = Transform( 2.16239, 0, 1.11932, 0, 1.98769, 0, -1.30567, 0, 1.85376, 22.82, -2.34995, 9.49307 )
 
+[node name="CameraEffects" type="AnimationPlayer" parent="Scene"]
+anims/RESET = SubResource( 11 )
+anims/camera-effects = SubResource( 12 )
+
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 margin_right = 228.0
 margin_bottom = 229.0
@@ -286,9 +230,5 @@ grow_vertical = 2
 text = "GAME OVER"
 align = 1
 valign = 1
-
-[node name="Bloom" type="AnimationPlayer" parent="."]
-anims/RESET = SubResource( 11 )
-anims/camera-effects = SubResource( 12 )
 
 [connection signal="body_entered" from="Scene/Glacier" to="." method="_on_Glacier_body_entered"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Shaders/RoystanToonWaterShader.tres" type="Material" id=1]
 [ext_resource path="res://Models/berg.glb" type="PackedScene" id=2]
@@ -58,9 +58,9 @@ dof_blur_far_distance = 1.77
 dof_blur_far_transition = 0.03
 dof_blur_far_amount = 0.0
 glow_enabled = true
-glow_intensity = 0.05
-glow_strength = 1.02
-glow_bloom = 0.06
+glow_intensity = 0.19
+glow_strength = 0.6
+glow_bloom = 0.89
 glow_blend_mode = 0
 glow_hdr_threshold = 0.95
 glow_hdr_luminance_cap = 10.4
@@ -68,9 +68,231 @@ glow_hdr_scale = 1.75
 glow_bicubic_upscale = true
 glow_high_quality = true
 adjustment_enabled = true
-adjustment_saturation = 2.5
+adjustment_contrast = 1.35
+adjustment_saturation = 2.41
 
 [sub_resource type="CubeMesh" id=10]
+
+[sub_resource type="Animation" id=13]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("berg:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( -16.934, -7.939, -72.335 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("berg:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, -20.116 ) ]
+}
+
+[sub_resource type="Animation" id=14]
+resource_name = "berg-moving"
+length = 225.0
+step = 1.0
+tracks/0/type = "transform"
+tracks/0/path = NodePath("berg")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = PoolRealArray(  )
+tracks/1/type = "transform"
+tracks/1/path = NodePath("berg")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = PoolRealArray(  )
+tracks/2/type = "value"
+tracks/2/path = NodePath("berg:translation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 223 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( -16.934, -7.939, -72.335 ), Vector3( 21.067, -7.939, -72.335 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("berg:rotation_degrees")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 103, 223 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, -20.116 ), Vector3( -0.404, -40.294, -15.098 ), Vector3( -0.404, -80, -23.923 ) ]
+}
+
+[sub_resource type="Animation" id=15]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("WorldEnvironment2:environment:auto_exposure_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 2.4 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("WorldEnvironment2:environment:glow_bloom")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.89 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("WorldEnvironment2:environment:glow_strength")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.6 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("WorldEnvironment2:environment:glow_intensity")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.19 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("WorldEnvironment2:environment:adjustment_saturation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 2.41 ]
+}
+
+[sub_resource type="Animation" id=16]
+resource_name = "camera-effects"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("WorldEnvironment2:environment")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray(  ),
+"transitions": PoolRealArray(  ),
+"update": 1,
+"values": [  ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("WorldEnvironment2:environment:auto_exposure_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 2.4, 64.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("WorldEnvironment2:environment")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = false
+tracks/2/keys = {
+"times": PoolRealArray(  ),
+"transitions": PoolRealArray(  ),
+"update": 1,
+"values": [  ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("WorldEnvironment2:environment:glow_bloom")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.89, 0.89 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("WorldEnvironment2:environment:glow_strength")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.6, 0.6 ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("WorldEnvironment2:environment:glow_intensity")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.19, 0.19 ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("WorldEnvironment2:environment:adjustment_saturation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 2.41, 0.01 ]
+}
 
 [node name="root" type="Spatial"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0780125, -0.128881, -0.121754 )
@@ -102,7 +324,15 @@ stream = ExtResource( 4 )
 volume_db = 2.0
 autoplay = true
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Scene"]
+[node name="berg" parent="Scene" instance=ExtResource( 2 )]
+transform = Transform( 0.938999, 0.343922, 0, -0.343922, 0.938998, 0, 0, 0, 1, -16.934, -7.939, -72.335 )
 
-[node name="berg" parent="Scene/AnimationPlayer" instance=ExtResource( 2 )]
-transform = Transform( 0.926306, 0.376774, -1.42743e-08, -0.376774, 0.926305, -5.78702e-08, 1.49012e-08, -2.98023e-08, 1, -16.856, -8.06788, -72.4568 )
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Scene"]
+anims/RESET = SubResource( 13 )
+anims/berg-moving = SubResource( 14 )
+
+[node name="Bloom" type="AnimationPlayer" parent="Scene"]
+anims/RESET = SubResource( 15 )
+anims/camera-effects = SubResource( 16 )
+
+[connection signal="animation_finished" from="Scene/Bloom" to="." method="_on_Bloom_animation_finished"]

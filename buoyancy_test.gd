@@ -32,7 +32,7 @@ func _input(event):
 func _physics_process(delta):
 	t += delta
 	for b in get_tree().get_nodes_in_group("snowballs"):
-		if b.global_transform.origin.y <= 0:
+		if b.touching_water():
 			b.melt(delta)
 
 func _snowball_grabbed(snowball):

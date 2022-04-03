@@ -49,13 +49,13 @@ func _process(delta):
 		b.connect("grabbed",self,"_snowball_grabbed",[b])
 		b.add_to_group("snowballs")
 		add_child(b)
-		b.scale_by(rand_range(1.5,2.75))
+		b.scale_by(rand_range(2,2.75))
 		rate *= rand_range(0.99,1.0)
 	else:
 		t += delta
 	flow_vel += delta * GLOBAL_WARMING
 	
-	var water_level = start_sea_level + melt_level
+	var water_level = 0 #start_sea_level + melt_level
 	$Scene/Ocean.translation.y = water_level # TODO Tween
 	
 	var release_z = $Scene/Glacier/DropPoint.global_transform.origin.z 

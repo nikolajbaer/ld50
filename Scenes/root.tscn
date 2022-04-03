@@ -92,6 +92,12 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.98555, 1.02228 )
 [node name="Spawn" type="Spatial" parent="Scene/Glacier"]
 transform = Transform( 0.0285271, 0, 0, 0, 0.2219, 0.061964, 0, -0.0179479, 0.0642734, -0.00874247, 1.23608, 1.10821 )
 
+[node name="island" parent="Scene" instance=ExtResource( 6 )]
+transform = Transform( 0.3745, 0, -0.800002, 0, 1.06635, 0, 0.896495, 0, 0.600911, -44.1783, -6.71732, -24.142 )
+
+[node name="island2" parent="Scene" instance=ExtResource( 6 )]
+transform = Transform( -0.221814, 0, -0.948939, 0, 1.128, 0, 0.940966, 0, 0.0054118, 49.5157, -7.01261, -28.315 )
+
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 margin_right = 228.0
 margin_bottom = 229.0
@@ -129,15 +135,6 @@ grow_vertical = 2
 text = "GAME OVER"
 align = 1
 valign = 1
-
-[node name="island" parent="." instance=ExtResource( 6 )]
-transform = Transform( 0.3745, 0, -0.800002, 0, 1.06635, 0, 0.896495, 0, 0.600911, -44.1783, -6.71732, -24.142 )
-
-[node name="island2" parent="." instance=ExtResource( 6 )]
-transform = Transform( -0.221814, 0, -0.948939, 0, 1.128, 0, 0.940966, 0, 0.0054118, 49.5157, -7.01261, -28.315 )
-
-[node name="Title card cam" type="Camera" parent="."]
-transform = Transform( -1, 2.11495e-08, 8.48259e-08, 0, 0.970296, -0.241922, -8.74228e-08, -0.241922, -0.970296, 10, 5, -90 )
 
 [connection signal="body_entered" from="Scene/Ocean" to="." method="_on_Ocean_body_entered"]
 [connection signal="body_exited" from="Scene/Ocean" to="." method="_on_Ocean_body_exited"]

@@ -1,0 +1,266 @@
+[gd_scene load_steps=21 format=2]
+
+[ext_resource path="res://Scenes/Wall.tscn" type="PackedScene" id=1]
+[ext_resource path="res://root.gd" type="Script" id=2]
+[ext_resource path="res://Shaders/RoystanToonWaterShader.tres" type="Material" id=3]
+[ext_resource path="res://game_env.tres" type="Environment" id=4]
+[ext_resource path="res://Models/berg.glb" type="PackedScene" id=5]
+[ext_resource path="res://Models/shore.glb" type="PackedScene" id=6]
+[ext_resource path="res://Models/Boats/watercraftPack_004.gltf" type="PackedScene" id=7]
+[ext_resource path="res://Models/Boats/watercraftPack_005.gltf" type="PackedScene" id=8]
+[ext_resource path="res://Models/house_type01.glb" type="PackedScene" id=9]
+[ext_resource path="res://Models/house_type02.glb" type="PackedScene" id=10]
+[ext_resource path="res://Models/house_type04.glb" type="PackedScene" id=11]
+[ext_resource path="res://Models/Trees/tree_pineSmallA.glb" type="PackedScene" id=12]
+[ext_resource path="res://Models/Trees/tree_pineRoundB.glb" type="PackedScene" id=13]
+[ext_resource path="res://Models/4-3-22-2.wav" type="AudioStream" id=14]
+
+[sub_resource type="Animation" id=8]
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("../WorldEnvironment:environment")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray(  ),
+"transitions": PoolRealArray(  ),
+"update": 1,
+"values": [  ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../WorldEnvironment:environment:glow_intensity")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 8.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../WorldEnvironment:environment:glow_strength")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 2.0 ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "camera-effects"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("../WorldEnvironment:environment:glow_intensity")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 8.0, 1.24 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../WorldEnvironment:environment:glow_strength")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 2.0, 0.62 ]
+}
+
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 86.7434, 10.678, 56.7298 )
+
+[sub_resource type="CubeMesh" id=7]
+
+[sub_resource type="CubeMesh" id=2]
+size = Vector3( 1, 2, 2 )
+
+[sub_resource type="BoxShape" id=3]
+
+[node name="root" type="Spatial"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -24.3959, -3.8147e-06, -0.234715 )
+script = ExtResource( 2 )
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 0.78687, -0.338073, 0.516276, 0, 0.836592, 0.547826, -0.617118, -0.431068, 0.65829, 49.685, 45.761, 37.067 )
+fov = 44.8
+far = 1361.0
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 1, 0, 1.19249e-08, -1.19249e-08, -5.21253e-16, 1, 0, -1, -5.21253e-16, 1.884, 69, 9.906 )
+light_color = Color( 0.745098, 0.819608, 0.898039, 1 )
+light_energy = 0.411
+shadow_enabled = true
+shadow_bias = -1.618
+
+[node name="CameraEffects" type="AnimationPlayer" parent="."]
+root_node = NodePath("../shore2")
+anims/RESET = SubResource( 8 )
+anims/camera-effects = SubResource( 9 )
+
+[node name="Scene" type="Spatial" parent="."]
+
+[node name="Wall" parent="Scene" instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 0.910907, -0.412611, 0, 0.412611, 0.910907, -5.76138, 0, -23.8451 )
+
+[node name="Ocean" type="Area" parent="Scene"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -16.6603, 10.5548 )
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape" type="CollisionShape" parent="Scene/Ocean"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.74666, 7.80637 )
+shape = SubResource( 1 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Scene/Ocean"]
+transform = Transform( 155.235, 0, 0, 0, 20, 0, 0, 0, 100, -88.1994, -5.35044, -6.90833 )
+generate_lightmap = false
+mesh = SubResource( 7 )
+material/0 = ExtResource( 3 )
+
+[node name="Boats" type="Spatial" parent="Scene/Ocean"]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.114334, 0, -7.55032 )
+
+[node name="watercraftPack_004" parent="Scene/Ocean/Boats" instance=ExtResource( 7 )]
+transform = Transform( 0.680716, 0, 0.793279, 0, 1, 0, -0.886902, 0, 0.608858, -45.1612, 28.6256, -0.692964 )
+
+[node name="watercraftPack_005" parent="Scene/Ocean/Boats" instance=ExtResource( 8 )]
+transform = Transform( -0.278841, 0, -0.960338, 0, 1, 0, 0.960338, 0, -0.278841, -53.3563, 28.4043, 15.8226 )
+
+[node name="Glacier" type="Area" parent="Scene"]
+transform = Transform( 35.0544, 0, 0, 0, 4.18055, -4.03034, 0, 1.16739, 14.4331, 0.18631, 2.22125, -30.7239 )
+collision_layer = 2
+collision_mask = 2
+
+[node name="GlacierMeshes" type="MeshInstance" parent="Scene/Glacier"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.111, -0.009 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="berg" parent="Scene/Glacier/GlacierMeshes" instance=ExtResource( 5 )]
+transform = Transform( 0.0282299, 0.00410722, 0, -0.0319483, 0.219588, 0.0619641, 0.00258407, -0.0177609, 0.0642734, -0.532919, -2.20323, -0.461016 )
+
+[node name="berg2" parent="Scene/Glacier/GlacierMeshes" instance=ExtResource( 5 )]
+transform = Transform( -0.0363632, 0, 0.0203327, -0.0302411, 0.2219, -0.0540834, -0.0313682, -0.0179479, -0.0560991, 0.600375, -3.14987, -0.271284 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Scene/Glacier"]
+shape = SubResource( 3 )
+
+[node name="DropPoint" type="Spatial" parent="Scene/Glacier"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.98555, 1.02228 )
+
+[node name="Spawn" type="Spatial" parent="Scene/Glacier"]
+transform = Transform( 0.0285271, 0, 0, 0, 0.2219, 0.0619641, 0, -0.0179479, 0.0642734, 0.0690916, 2.98394, 0.528294 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+margin_right = 228.0
+margin_bottom = 229.0
+
+[node name="HUD" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD/VBoxContainer"]
+margin_right = 68.0
+margin_bottom = 14.0
+
+[node name="Label" type="Label" parent="HUD/VBoxContainer/HBoxContainer"]
+margin_right = 64.0
+margin_bottom = 14.0
+text = "Sea Level:"
+
+[node name="SeaLevel" type="Label" parent="HUD/VBoxContainer/HBoxContainer"]
+margin_left = 68.0
+margin_right = 68.0
+margin_bottom = 14.0
+
+[node name="GameOverLabel" type="Label" parent="HUD"]
+visible = false
+margin_left = 415.0
+margin_top = 235.0
+margin_right = 623.0
+margin_bottom = 323.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "GAME OVER"
+align = 1
+valign = 1
+
+[node name="shore" parent="." instance=ExtResource( 6 )]
+transform = Transform( 0.856051, 0, -0.516892, 0, 1, 0, 0.516892, 0, 0.856051, -49.0724, 5.48586, -14.4176 )
+
+[node name="house_type04" parent="shore" instance=ExtResource( 11 )]
+transform = Transform( 2.15022, 0, 0.179885, 0, 2.1078, 0, 0.179886, 0, 2.33952, 73.9371, -5.93167, -31.2585 )
+
+[node name="tree_pineSmallA" parent="." instance=ExtResource( 12 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -34.0967, 11.6523, 0.553818 )
+
+[node name="tree_pineSmallA2" parent="." instance=ExtResource( 12 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -35.2398, 11.6523, 0.553818 )
+
+[node name="tree_pineSmallA3" parent="." instance=ExtResource( 12 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -36.5082, 11.6523, 0.553818 )
+
+[node name="tree_pineSmallA4" parent="." instance=ExtResource( 12 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -36.5082, 12.3006, -1.06945 )
+
+[node name="tree_pineSmallA5" parent="." instance=ExtResource( 12 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -36.5082, 12.5956, -2.91983 )
+
+[node name="shore3" parent="." instance=ExtResource( 6 )]
+transform = Transform( 0.856051, 0, -0.516892, 0, 1, 0, 0.516892, 0, 0.856051, -34.8813, 2.42373, -51.9813 )
+
+[node name="shore2" parent="." instance=ExtResource( 6 )]
+transform = Transform( 0.856051, 0, -0.516892, 0, 1, 0, 0.516892, 0, 0.856051, 63.0448, 2.68765, -22.311 )
+
+[node name="tree_pineRoundB" parent="." instance=ExtResource( 13 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -34.2217, 11.8141, -1.22606 )
+
+[node name="tree_pineRoundB2" parent="." instance=ExtResource( 13 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -34.2217, 11.8141, -2.44472 )
+
+[node name="tree_pineRoundB3" parent="." instance=ExtResource( 13 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -32.5332, 11.8141, -2.44472 )
+
+[node name="tree_pineRoundB4" parent="." instance=ExtResource( 13 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -32.5332, 11.8141, 0.497299 )
+
+[node name="house_type01" parent="." instance=ExtResource( 9 )]
+transform = Transform( 0.561776, 0, 2.51454, 0, 2.34418, 0, -2.10628, 0, 0.670665, -34.5985, 2.30642, 15.0784 )
+
+[node name="house_type03" parent="." instance=ExtResource( 9 )]
+transform = Transform( 1.8396, 0, 1.39626, 0, 2.34418, 0, -1.16956, 0, 2.19617, -35.5998, 6.0314, 15.0784 )
+
+[node name="house_type02" parent="." instance=ExtResource( 10 )]
+transform = Transform( 2.52601, 0, 0, 0, 1.98769, 0, 0, 0, 2.16548, -34.4442, 3.13591, 5.50443 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 14 )
+autoplay = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource( 4 )
+
+[connection signal="animation_finished" from="CameraEffects" to="." method="_on_Bloom_animation_finished"]
+[connection signal="body_entered" from="Scene/Ocean" to="." method="_on_Ocean_body_entered"]
+[connection signal="body_exited" from="Scene/Ocean" to="." method="_on_Ocean_body_exited"]
+[connection signal="body_entered" from="Scene/Glacier" to="." method="_on_Glacier_body_entered"]

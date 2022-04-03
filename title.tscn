@@ -7,7 +7,7 @@
 [ext_resource path="res://Models/berg-title.glb" type="PackedScene" id=6]
 [ext_resource path="res://title.gd" type="Script" id=9]
 
-[sub_resource type="ProceduralSky" id=11]
+[sub_resource type="ProceduralSky" id=17]
 radiance_size = 3
 sky_top_color = Color( 0, 0.286275, 0.447059, 1 )
 sky_horizon_color = Color( 0.564706, 1, 0.427451, 1 )
@@ -18,7 +18,7 @@ sun_energy = 17.11
 
 [sub_resource type="Environment" id=12]
 background_mode = 2
-background_sky = SubResource( 11 )
+background_sky = SubResource( 17 )
 background_sky_custom_fov = 66.4
 background_energy = 0.88
 ambient_light_color = Color( 0.65098, 0.65098, 0.65098, 1 )

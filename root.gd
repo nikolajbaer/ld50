@@ -32,6 +32,7 @@ func _ready():
 	restored_snow = []
 	melt_level = 0
 	start_sea_level = $Scene/Ocean.global_transform.origin.y
+	$WorldEnvironment.process_priority
 	# TODO change for start game button
 	game_on = true
 

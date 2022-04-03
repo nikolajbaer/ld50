@@ -1,75 +1,12 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Shaders/RoystanToonWaterShader.tres" type="Material" id=1]
 [ext_resource path="res://Models/berg.glb" type="PackedScene" id=2]
 [ext_resource path="res://press-a-key.tscn" type="PackedScene" id=3]
 [ext_resource path="res://4-3-22.wav" type="AudioStream" id=4]
+[ext_resource path="res://title-env.tres" type="Environment" id=5]
 [ext_resource path="res://Models/berg-title.glb" type="PackedScene" id=6]
 [ext_resource path="res://title.gd" type="Script" id=9]
-
-[sub_resource type="ProceduralSky" id=17]
-radiance_size = 3
-sky_top_color = Color( 0, 0.286275, 0.447059, 1 )
-sky_horizon_color = Color( 0.564706, 1, 0.427451, 1 )
-sky_curve = 0.046587
-sky_energy = 3.97
-sun_color = Color( 0.811765, 0.811765, 0.811765, 1 )
-sun_energy = 17.11
-
-[sub_resource type="Environment" id=12]
-background_mode = 2
-background_sky = SubResource( 17 )
-background_sky_custom_fov = 66.4
-background_energy = 0.88
-ambient_light_color = Color( 0.65098, 0.65098, 0.65098, 1 )
-ambient_light_energy = 2.56
-ambient_light_sky_contribution = 0.97
-fog_enabled = true
-fog_color = Color( 0.498039, 0.545098, 0.592157, 1 )
-fog_sun_color = Color( 0.835294, 0.835294, 0.835294, 1 )
-fog_sun_amount = 0.17
-fog_depth_begin = 35.0
-fog_depth_curve = 0.138696
-fog_transmit_enabled = true
-fog_transmit_curve = 0.225313
-fog_height_enabled = true
-fog_height_min = 0.0
-fog_height_max = 150.0
-fog_height_curve = 0.870551
-tonemap_mode = 2
-tonemap_exposure = 0.81
-tonemap_white = 6.78
-auto_exposure_enabled = true
-auto_exposure_scale = 2.4
-auto_exposure_min_luma = 1.85
-auto_exposure_max_luma = 8.1
-auto_exposure_speed = 3.3
-ss_reflections_enabled = true
-ssao_enabled = true
-ssao_radius = 32.97
-ssao_intensity = 10.6
-ssao_intensity2 = 7.2
-ssao_bias = 0.76
-ssao_light_affect = 0.13
-ssao_ao_channel_affect = 0.17
-ssao_quality = 2
-ssao_edge_sharpness = 0.8
-dof_blur_far_distance = 1.77
-dof_blur_far_transition = 0.03
-dof_blur_far_amount = 0.0
-glow_enabled = true
-glow_intensity = 0.19
-glow_strength = 0.6
-glow_bloom = 0.89
-glow_blend_mode = 0
-glow_hdr_threshold = 0.95
-glow_hdr_luminance_cap = 10.4
-glow_hdr_scale = 1.75
-glow_bicubic_upscale = true
-glow_high_quality = true
-adjustment_enabled = true
-adjustment_contrast = 1.35
-adjustment_saturation = 2.41
 
 [sub_resource type="CubeMesh" id=10]
 
@@ -301,7 +238,7 @@ script = ExtResource( 9 )
 [node name="Scene" type="Spatial" parent="."]
 
 [node name="WorldEnvironment2" type="WorldEnvironment" parent="Scene"]
-environment = SubResource( 12 )
+environment = ExtResource( 5 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Scene"]
 transform = Transform( 100, 0, 0, 0, 20, 0, 0, 0, 109.553, -4.81064, -22.0107, 3.64647 )

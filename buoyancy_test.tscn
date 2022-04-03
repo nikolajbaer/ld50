@@ -1,0 +1,47 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Shaders/RoystanToonWaterShader.tres" type="Material" id=1]
+[ext_resource path="res://Models/Boats/watercraftPack_004.gltf" type="PackedScene" id=2]
+[ext_resource path="res://Models/Boats/watercraftPack_005.gltf" type="PackedScene" id=3]
+[ext_resource path="res://buoyancy_test.gd" type="Script" id=4]
+
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 86.7434, 10.678, 56.7298 )
+
+[sub_resource type="CubeMesh" id=2]
+
+[node name="Spatial" type="Spatial"]
+script = ExtResource( 4 )
+
+[node name="Ocean" type="Area" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape" type="CollisionShape" parent="Ocean"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -11.2161, 7.80637 )
+shape = SubResource( 1 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Ocean"]
+transform = Transform( 100, 0, 0, 0, 20, 0, 0, 0, 100, -4.81064, -19.3132, -6.90833 )
+generate_lightmap = false
+mesh = SubResource( 2 )
+material/0 = ExtResource( 1 )
+
+[node name="Boats" type="Spatial" parent="Ocean"]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.114, 0, 0 )
+
+[node name="watercraftPack_004" parent="Ocean/Boats" instance=ExtResource( 2 )]
+transform = Transform( 0.680716, 0, 0.793279, 0, 1, 0, -0.886902, 0, 0.608858, -18.215, 0, 20.705 )
+
+[node name="watercraftPack_005" parent="Ocean/Boats" instance=ExtResource( 3 )]
+transform = Transform( -0.278841, 0, -0.960338, 0, 1, 0, 0.960338, 0, -0.278841, -15.606, 0, 31.508 )
+
+[node name="Spawn" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.6511, 0 )
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( -0.52105, 0.279575, -0.80644, 0.0164164, 0.947941, 0.318023, 0.853368, 0.152467, -0.498514, -51.8382, 23.3121, -38.7968 )
+fov = 30.0
+far = 1000.0
+
+[connection signal="body_entered" from="Ocean" to="." method="_on_Ocean_body_entered"]

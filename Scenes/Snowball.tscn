@@ -16,11 +16,11 @@ direction = Vector3( 0, 1, 0 )
 spread = 94.09
 initial_velocity = 3.0
 
-[sub_resource type="SpatialMaterial" id=4]
+[sub_resource type="SpatialMaterial" id=6]
 albedo_color = Color( 0.635294, 0.835294, 0.909804, 1 )
 
 [sub_resource type="SphereMesh" id=5]
-material = SubResource( 4 )
+material = SubResource( 6 )
 radius = 0.25
 height = 0.5
 radial_segments = 12
